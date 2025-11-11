@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPS Bokaro Portal</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background: linear-gradient(135deg,#0f0f0f,#1c1c1c); color:white; min-height:100vh; display:flex; flex-direction:column; transition:0.5s;}
+header{display:flex; justify-content:space-between; align-items:center; padding:15px 25px; background:rgba(0,0,0,0.9); position:sticky; top:0; z-index:1000; box-shadow:0 2px 10px rgba(255,255,255,0.1);}
+header img{height:45px; width:auto; border-radius:10px;}
+header .center-text{flex-grow:1;text-align:center;}
+header h1{font-size:18px;font-weight:600;color:#f5f5f5;margin-bottom:5px;}
+header p{font-size:12px;color:#bbb;font-style:italic;}
+header .right{font-size:14px;color:#ccc; position:relative;}
+#usernameDisplay{color:#4ea3ff;font-weight:bold;}
+
+/* Toggle */
+.toggle-container{display:flex; align-items:center; gap:6px;}
+.toggle-container label{font-size:13px;color:#ccc;}
+.toggle{width:40px;height:20px;background:#444;border-radius:20px;position:relative;cursor:pointer; transition:0.3s;}
+.toggle::before{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;background:white;border-radius:50%;transition:0.3s;}
+.toggle.active{background:#4ea3ff;}
+.toggle.active::before{transform:translateX(20px);}
+
+/* Layout */
+main{flex-grow:1; padding:40px 20px; text-align:center;}
+main h2{font-size:28px;margin-bottom:10px;}
+main p{font-size:16px;color:#aaa; max-width:600px;margin:0 auto;}
+
+footer{background:rgba(0,0,0,0.9); color:#bbb; text-align:center; padding:15px; font-size:14px; border-top:1px solid rgba(255,255,255,0.1);}
+footer a{color:#4ea3ff;text-decoration:none;}
+footer a:hover{text-decoration:underline;}
+
+.light-mode{background:#f5f5f5;color:#222;}
+.light-mode header{background:#e0e0e0;color:#222;}
+.light-mode header h1, .light-mode header p{color:#222;}
+.light-mode footer{background:#e0e0e0;color:#222;}
+
+@media(max-width:768px){
+  main{padding:20px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="C:/Users/TQG/Downloads/LOGO.jpg.png" alt="WhitePEAK Logo">
+  <div class="center-text">
+    <h1>For DPS Bokaro Class 7/C Students Only</h1>
+    <p>"Nothing you need to remember"</p>
+    <div id="userHeader" style="margin-top:5px; font-size:14px; color:#ccc;">Logged in as: <span id="usernameDisplay"></span></div>
+  </div>
+  <div class="toggle-container">
+    <label>Light</label>
+    <div class="toggle" id="themeToggle"></div>
+  </div>
+</header>
+
+<main>
+  <h2>Welcome to DPS Bokaro Class 7/C Portal</h2>
+  <p>This website is designed exclusively for Class 7/C students of DPS Bokaro. Here you’ll find school updates, assignments, and notices. Stay tuned for daily updates and announcements.</p>
+</main>
+
+<footer>
+  <p>© 2025 WhitePEAK Productions — All Rights Reserved.</p>
+  <p>Founder & Developer: <strong>Shreyam Sharma & Saksham Kumar</strong></p>
+  <p>For any problem, contact us at <a href="mailto:whitepeakproductions9811@gmail.com">whitepeakproductions9811@gmail.com</a></p>
+</footer>
+
+<script>
+// Dark/Light toggle with label change
+const toggle = document.getElementById('themeToggle');
+const label = document.querySelector('.toggle-container label');
+toggle.addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
+  toggle.classList.toggle('active');
+  label.textContent = document.body.classList.contains('light-mode') ? 'Dark' : 'Light';
+});
+
+// Logged-in username
+const username = localStorage.getItem('savedName') || "Guest";
+document.getElementById('usernameDisplay').innerText = username;
+</script>
+
+</body>
+</html>

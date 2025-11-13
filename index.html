@@ -1,118 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Intro Page</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{height:100vh;background-color:black;display:flex;justify-content:center;align-items:center;overflow:hidden;transition:background 1s ease-in-out;}
-#logo{max-width:100%;max-height:100%;object-fit:contain;opacity:0;}
-@keyframes fadeInOut{0%{opacity:0;}30%{opacity:1;}70%{opacity:1;}100%{opacity:0;}}
-#fadeOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:black;opacity:0;pointer-events:none;transition:opacity 1s ease-in-out;z-index:999;}
-.form-container{display:none;flex-direction:column;align-items:center;background:rgba(255,255,255,0.95);padding:30px;border-radius:20px;box-shadow:0 0 40px rgba(255,255,255,0.2);width:90%;max-width:400px;animation:slideUp 1s ease-in-out forwards;transform:translateY(50px);}
-@keyframes slideUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
-.form-container h2{margin-bottom:20px;color:#111;font-size:24px;}
-.form-container input,.form-container select,.form-container button{margin:10px 0;padding:10px;width:100%;font-size:16px;border-radius:10px;border:1px solid #ccc;outline:none;transition:all 0.3s ease;}
-.form-container input:focus,.form-container select:focus{border-color:#000;box-shadow:0 0 5px rgba(0,0,0,0.3);}
-.form-container button{background-color:#000;color:white;cursor:pointer;font-weight:bold;letter-spacing:1px;}
-.form-container button:hover{background-color:#333;}
-.remember{display:flex;align-items:center;width:100%;margin-top:5px;}
-.remember input{margin-right:8px;width:auto;}
-.error{color:red;margin-top:10px;font-size:14px;display:none;}
-.success{color:green;margin-top:10px;font-size:14px;display:none;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WhitePEAK - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      transition: background 1s ease-in-out;
+    }
+
+    #logo {
+      max-width: 80%;
+      max-height: 80%;
+      object-fit: contain;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      30% { opacity: 1; }
+      70% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    #fadeOverlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease-in-out;
+      z-index: 999;
+    }
+
+    .form-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+      width: 90%;
+      max-width: 400px;
+      animation: slideUp 1s ease-in-out forwards;
+      transform: translateY(50px);
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: #111;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .form-container input,
+    .form-container select,
+    .form-container button {
+      margin: 10px 0;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .form-container input:focus,
+    .form-container select:focus {
+      border-color: #000;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-container button {
+      background-color: #000;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .form-container button:hover {
+      background-color: #333;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+
+    .remember input {
+      margin-right: 8px;
+      width: auto;
+    }
+
+    .error, .success {
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+
+    .error { color: red; }
+    .success { color: green; }
+  </style>
 </head>
 <body>
-<div id="fadeOverlay"></div>
-<img id="logo" src="LOGO.jpg.png" alt="WhitePEAK Productions Logo">
 
-<div class="form-container" id="formBox">
-<h2>Login to Continue</h2>
-<input type="text" id="name" placeholder="Enter Name" required>
-<input type="password" id="password" placeholder="Enter Password" required>
-<select id="gender" required>
-  <option value="">Select Gender</option>
-  <option>Male</option>
-  <option>Female</option>
-  <option>Other</option>
-</select>
-<div class="remember">
-  <input type="checkbox" id="rememberMe">
-  <label for="rememberMe">Remember Me</label>
-</div>
-<button onclick="checkLogin()">Submit</button>
-<p class="error" id="errorMsg">Password incorrect, try again.</p>
-<p class="success" id="successMsg">Login successful!</p>
-</div>
+  <!-- Black fade overlay -->
+  <div id="fadeOverlay"></div>
 
-<script>
-const logo=document.getElementById('logo');
-const formBox=document.getElementById('formBox');
-const errorMsg=document.getElementById('errorMsg');
-const successMsg=document.getElementById('successMsg');
-const fadeOverlay=document.getElementById('fadeOverlay');
+  <!-- Logo Animation -->
+  <img id="logo" src="LOGO.jpg.png" alt="WhitePEAK Productions Logo"
+       onerror="this.src='https://via.placeholder.com/300/111111/ffffff?text=WHITEPEAK'; this.onerror=null;">
 
-const data={
-"Aaradhya":22,"Aditya":11,"Akshat":33,"Ananya":44,"Anay":55,
-"Anjaney":66,"Anshika":77,"Anshuman":88,"Arnav":110,"Ayan":121,
-"Ayansh":131,"Farique":141,"Kiyansh":151,"Harshvardhan":161,"Madhav":171,
-"Om":181,"Palak":191,"Paridhi":201,"Parina":202,"Pawan":203,
-"Pramesh":204,"Prasidhi":205,"Rayan":206,"Riya":207,"Sanvi":208,
-"Shagun":209,"Sharanya":901,"Shiksha":401,"Shreyanshi":190,"Siddharth":180,
-"Soumya":170,"Urja":150,"Varsha":140,"Yatharth":130,"Suryanshi":160,
-"Shreyam":"POP9811","Saksham":"POP9811",
-"Arifa":299,"Suman":399
-};
+  <!-- Login Form -->
+  <div class="form-container" id="formBox">
+    <h2>Login to Continue</h2>
+    <input type="text" id="name" placeholder="Enter Name" required />
+    <input type="password" id="password" placeholder="Enter Password" required />
+    <select id="gender" required>
+      <option value="">Select Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+    <div class="remember">
+      <input type="checkbox" id="rememberMe" />
+      <label for="rememberMe">Remember Me</label>
+    </div>
+    <button onclick="checkLogin()">Submit</button>
+    <p class="error" id="errorMsg">Incorrect name or password. Try again.</p>
+    <p class="success" id="successMsg">Login successful! Redirecting...</p>
+  </div>
 
-logo.onload=()=>{
-  logo.style.animation='fadeInOut 6s ease-in-out forwards';
-  setTimeout(()=>{
-    logo.style.display='none';
-    document.body.style.backgroundColor='#111';
-    formBox.style.display='flex';
-    loadRemembered();
-  },6000);
-};
+  <script>
+    // === ELEMENTS ===
+    const logo = document.getElementById('logo');
+    const formBox = document.getElementById('formBox');
+    const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
+    const fadeOverlay = document.getElementById('fadeOverlay');
 
-function loadRemembered(){
-  const savedName=localStorage.getItem('savedName');
-  const savedGender=localStorage.getItem('savedGender');
-  if(savedName) document.getElementById('name').value=savedName;
-  if(savedGender) document.getElementById('gender').value=savedGender;
-  if(savedName||savedGender) document.getElementById('rememberMe').checked=true;
-}
+    // === PASSWORD DATABASE ===
+    const data = {
+      "Aaradhya": 22, "Aditya": 11, "Akshat": 33, "Ananya": 44, "Anay": 55,
+      "Anjaney": 66, "Anshika": 77, "Anshuman": 88, "Arnav": 110, "Ayan": 121,
+      "Ayansh": 131, "Farique": 141, "Kiyansh": 151, "Harshvardhan": 161, "Madhav": 171,
+      "Om": 181, "Palak": 191, "Paridhi": 201, "Parina": 202, "Pawan": 203,
+      "Pramesh": 204, "Prasidhi": 205, "Rayan": 206, "Riya": 207, "Sanvi": 208,
+      "Shagun": 209, "Sharanya": 901, "Shiksha": 401, "Shreyanshi": 190, "Siddharth": 180,
+      "Soumya": 170, "Urja": 150, "Varsha": 140, "Yatharth": 130, "Suryanshi": 160,
+      "Shreyam": "POP9811", "Saksham": "POP9811",
+      "Arifa": 299, "Suman": 399
+    };
 
-function checkLogin(){
-  const name=document.getElementById('name').value.trim();
-  const password=document.getElementById('password').value.trim();
-  const gender=document.getElementById('gender').value;
-  const remember=document.getElementById('rememberMe').checked;
+    // === LOGO ANIMATION → SHOW FORM AFTER 6 SECONDS ===
+    logo.onload = () => {
+      logo.style.animation = 'fadeInOut 6s ease-in-out forwards';
+      setTimeout(() => {
+        logo.style.display = 'none';
+        document.body.style.backgroundColor = '#111';
+        formBox.style.display = 'flex';
+        loadRemembered();
+      }, 6000);
+    };
 
-  errorMsg.style.display='none';
-  successMsg.style.display='none';
-
-  if(name in data){
-    const correctPass=(name==="Shreyam"||name==="Saksham") ? "POP9811" : "fox"+data[name];
-    if(password===correctPass){
-      successMsg.style.display='block';
-      if(remember){
-        localStorage.setItem('savedName',name);
-        localStorage.setItem('savedGender',gender);
-      }else{
-        localStorage.removeItem('savedName');
-        localStorage.removeItem('savedGender');
-      }
-      fadeOverlay.style.opacity='1';
-      setTimeout(()=>{window.location.href="main.html";},1000);
-    }else{
-      errorMsg.style.display='block';
+    // Fallback if logo fails to load
+    if (logo.complete && logo.naturalHeight === 0) {
+      logo.onload();
     }
-  }else{
-    errorMsg.style.display='block';
-  }
-}
-</script>
+
+    // === LOAD REMEMBERED DATA ===
+    function loadRemembered() {
+      const savedName = localStorage.getItem('savedName');
+      const savedGender = localStorage.getItem('savedGender');
+      if (savedName) document.getElementById('name').value = savedName;
+      if (savedGender) document.getElementById('gender').value = savedGender;
+      if (savedName || savedGender) document.getElementById('rememberMe').checked = true;
+    }
+
+    // === MAIN LOGIN FUNCTION (FIXED!) ===
+    function checkLogin() {
+      const name = document.getElementById('name').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const gender = document.getElementById('gender').value;
+      const remember = document.getElementById('rememberMe').checked;
+
+      // Reset messages
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+
+      if (!name || !password || !gender) {
+        errorMsg.textContent = "Please fill all fields.";
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      if (name in data) {
+        const correctPass = (name === "Shreyam" || name === "Saksham") ? "POP9811" : "fox" + data[name];
+
+        if (password === correctPass) {
+          successMsg.style.display = 'block';
+
+          // === CRITICAL FIX: Save username for main.html ===
+          localStorage.setItem("username", name);
+          // ===============================================
+
+          // Save "Remember Me" data
+          if (remember) {
+            localStorage.setItem('savedName', name);
+            localStorage.setItem('savedGender', gender);
+          } else {
+            localStorage.removeItem('savedName');
+            localStorage.removeItem('savedGender');
+          }
+
+          // Fade to black and redirect
+          fadeOverlay.style.opacity = '1';
+          setTimeout(() => {
+            window.location.href = "main.html";  // Must match your portal file name
+          }, 1000);
+        } else {
+          errorMsg.textContent = "Incorrect password.";
+          errorMsg.style.display = 'block';
+        }
+      } else {
+        errorMsg.textContent = "Name not found.";
+        errorMsg.style.display = 'block';
+      }
+    }
+  </script>
 </body>
 </html>
+
+
+
+
 

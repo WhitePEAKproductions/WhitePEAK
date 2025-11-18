@@ -32,46 +32,294 @@
       overflow-x: hidden;
     }
 
-    /* ────── ALL YOUR ORIGINAL STYLES (unchanged) ────── */
-    header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: rgba(0,0,0,.92); backdrop-filter: blur(10px); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 12px; }
-    header img { height: 48px; border-radius: 12px; object-fit: contain; box-shadow: 0 0 10px rgba(255,255,255,.2); }
-    .center-text { flex: 1; text-align: center; min-width: 200px; }
-    .center-text h1 { font-size: 19px; font-weight: 700; letter-spacing: .5px; }
-    .center-text p { font-size: 13px; color: #aaa; font-style: italic; margin-top: 4px; }
-    .controls { display: flex; align-items: center; gap: 16px; }
-    .toggle-container { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #ccc; }
-    .toggle { width: 44px; height: 22px; background: #444; border-radius: 50px; position: relative; cursor: pointer; transition: background .3s; }
-    .toggle::before { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform .3s; box-shadow: 0 1px 3px rgba(0,0,0,.4); }
-    .toggle.active { background: var(--accent); }
-    .toggle.active::before { transform: translateX(22px); }
-    .signout-btn { background: #ff3b30; border: none; color: #fff; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all .3s; box-shadow: 0 2px 6px rgba(255,59,48,.3); }
-    .signout-btn:hover { background: #ff1a1a; transform: translateY(-1px); }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: rgba(0, 0, 0, .92);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-    main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; text-align: center; gap: 40px; }
-    .welcome { font-size: 30px; font-weight: 700; background: linear-gradient(90deg, #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; animation: fadeInUp 1.2s forwards; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    header img {
+      height: 48px;
+      border-radius: 12px;
+      object-fit: contain;
+      box-shadow: 0 0 10px rgba(255, 255, 255, .2);
+    }
 
-    .sections { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; max-width: 1000px; }
-    .section { width: 260px; height: 130px; background: var(--card-dark); border: 1.5px solid var(--border-dark); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 21px; font-weight: 600; color: #fff; cursor: pointer; transition: all .4s cubic-bezier(.25,.8,.25,1); position: relative; overflow: hidden; backdrop-filter: blur(5px); user-select: none; }
-    .section::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,.1), transparent); opacity: 0; transition: opacity .3s; }
-    .section:hover::before, .section:focus-visible::before { opacity: 1; }
-    .section:hover, .section:focus-visible { transform: translateY(-8px) scale(1.03); background: rgba(255,255,255,.15); box-shadow: 0 12px 25px rgba(0,0,0,.3); border-color: var(--accent); outline: none; }
+    .center-text {
+      flex: 1;
+      text-align: center;
+      min-width: 200px;
+    }
 
-    .events { background: var(--card-dark); border: 1px solid var(--border-dark); border-radius: 16px; padding: 24px; width: min(85%,820px); text-align: left; backdrop-filter: blur(8px); }
-    .events h3 { font-size: 23px; margin-bottom: 12px; color: var(--accent); }
-    .funny-text { margin-top: 20px; font-size: 27px; font-weight: 800; color: var(--danger); text-shadow: 0 0 15px rgba(255,77,77,.5); animation: pulse 3s infinite; }
-    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    .center-text h1 {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
 
-    .chatango-wrapper { width: min(100%,300px); height: 420px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.5); border: 1px solid var(--border-dark); background: #000; margin-top: 20px; }
-    @media (min-width:992px) { .chatango-wrapper { position: fixed; bottom: 20px; right: 20px; z-index: 900; } }
-    @media (max-width:991px) { .chatango-wrapper { position: static; margin: 20px auto; } }
+    .center-text p {
+      font-size: 13px;
+      color: #aaa;
+      font-style: italic;
+      margin-top: 4px;
+    }
 
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.85); backdrop-filter: blur(10px); justify-content: center; align-items: center; z-index: 2000; animation: fadeIn .4s; }
-    .modal-content { background: #1a1a1a; padding: 32px; border-radius: 20px; text-align: center; max-width: 400px; width: 90%; border: 1px solid #444; box-shadow: 0 20px 40px rgba(0,0,0,.5); animation: zoomIn .4s; }
-    .modal-content h3 { margin-bottom: 16px; font-size: 22px; color: var(--danger); }
-    .modal-content p { margin-bottom: 20px; color: #ddd; line-height: 1.6; }
-    .close-btn { background: var(--accent); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: .3s; }
-    .close-btn:hover { background: #3b8ed9; }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #ccc;
+    }
+
+    .toggle {
+      width: 44px;
+      height: 22px;
+      background: #444;
+      border-radius: 50px;
+      position: relative;
+      cursor: pointer;
+      transition: background .3s;
+    }
+
+    .toggle::before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform .3s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+    }
+
+    .toggle.active {
+      background: var(--accent);
+    }
+
+    .toggle.active::before {
+      transform: translateX(22px);
+    }
+
+    .signout-btn {
+      background: #ff3b30;
+      border: none;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .3s;
+      box-shadow: 0 2px 6px rgba(255, 59, 48, .3);
+    }
+
+    .signout-btn:hover {
+      background: #ff1a1a;
+      transform: translateY(-1px);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      text-align: center;
+      gap: 40px;
+    }
+
+    .welcome {
+      font-size: 30px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #fff, var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: fadeInUp 1.2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sections {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      max-width: 1000px;
+    }
+
+    .section {
+      width: 260px;
+      height: 130px;
+      background: var(--card-dark);
+      border: 1.5px solid var(--border-dark);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      transition: all .4s cubic-bezier(.25, .8, .25, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+      user-select: none;
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.1), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .section:hover::before,
+    .section:focus-visible::before {
+      opacity: 1;
+    }
+
+    .section:hover,
+    .section:focus-visible {
+      transform: translateY(-8px) scale(1.03);
+      background: rgba(255, 255, 255, .15);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, .3);
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .events {
+      background: var(--card-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 24px;
+      width: min(85%, 820px);
+      text-align: left;
+      backdrop-filter: blur(8px);
+    }
+
+    .events h3 {
+      font-size: 23px;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+
+    .funny-text {
+      margin-top: 20px;
+      font-size: 27px;
+      font-weight: 800;
+      color: var(--danger);
+      text-shadow: 0 0 15px rgba(255, 77, 77, .5);
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .chatango-wrapper {
+      width: min(100%, 300px);
+      height: 420px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .5);
+      border: 1px solid var(--border-dark);
+      background: #000;
+      margin-top: 20px;
+    }
+
+    @media (min-width: 992px) {
+      .chatango-wrapper {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 900;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .chatango-wrapper {
+        position: static;
+        margin: 20px auto;
+      }
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .85);
+      backdrop-filter: blur(10px);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      animation: fadeIn .4s;
+    }
+
+    .modal-content {
+      background: #1a1a1a;
+      padding: 32px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      border: 1px solid #444;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, .5);
+      animation: zoomIn .4s;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 16px;
+      font-size: 22px;
+      color: var(--danger);
+    }
+
+    .modal-content p {
+      margin-bottom: 20px;
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    .close-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .close-btn:hover {
+      background: #3b8ed9;
+    }
+
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes zoomIn { from { transform: scale(.7); } to { transform: scale(1); } }
 
@@ -81,33 +329,63 @@
     .light-mode .funny-text { color: #d00; }
     .light-mode .modal-content { background: #fff; color: #222; border: 1px solid #ddd; }
 
-    footer { background: rgba(0,0,0,.9); color: #ccc; text-align: center; padding: 18px; font-size: 14px; border-top: 1px solid var(--border-dark); }
+    footer {
+      background: rgba(0, 0, 0, .9);
+      color: #ccc;
+      text-align: center;
+      padding: 18px;
+      font-size: 14px;
+      border-top: 1px solid var(--border-dark);
+    }
+
     footer a { color: var(--accent); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
-    @media (max-width:768px) { header { flex-direction: column; padding: 14px; gap: 10px; } .center-text { order: 1; } .controls { order: 2; } .welcome { font-size: 26px; } .section { width: 220px; height: 110px; font-size: 19px; } }
-    @media (max-width:480px) { .section { width: 180px; height: 90px; font-size: 17px; } .funny-text { font-size: 22px; } .chatango-wrapper { height: 380px; } }
-    .section:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    @media (max-width: 768px) {
+      header { flex-direction: column; padding: 14px; gap: 10px; }
+      .center-text { order: 1; }
+      .controls { order: 2; }
+      .welcome { font-size: 26px; }
+      .section { width: 220px; height: 110px; font-size: 19px; }
+    }
 
-    /* ONLY NEW STYLE — White Open PDF button */
+    @media (max-width: 480px) {
+      .section { width: 180px; height: 90px; font-size: 17px; }
+      .funny-text { font-size: 22px; }
+      .chatango-wrapper { height: 380px; }
+    }
+
+    .section:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* WHITE OPEN PDF BUTTON */
     .pdf-btn {
       display: inline-block;
       background: #ffffff;
       color: #000;
-      padding: 12px 32px;
+      padding: 14px 36px;
       margin-top: 20px;
       border-radius: 12px;
       font-weight: 600;
+      font-size: 16px;
       text-decoration: none;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
       transition: all 0.3s ease;
     }
-    .pdf-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
-    .light-mode .pdf-btn { background: #000; color: #fff; }
+    .pdf-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+    .light-mode .pdf-btn {
+      background: #000;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
-  <!-- YOUR EXACT HTML (unchanged) -->
+
   <header>
     <img src="LOGO.jpg.png" alt="WhitePEAK Logo" onerror="this.src='https://via.placeholder.com/48/111111/ffffff?text=WP'; this.onerror=null;">
     <div class="center-text">
@@ -153,7 +431,6 @@
     <p>Contact: <a href="mailto:whitepeakproductions9811@gmail.com">whitepeakproductions9811@gmail.com</a></p>
   </footer>
 
-  <!-- Modal (original) -->
   <div class="modal" id="pdfModal">
     <div class="modal-content">
       <h3 id="modalTitle">Class Work</h3>
@@ -163,7 +440,6 @@
   </div>
 
   <script>
-    // === ALL YOUR ORIGINAL JS (only openModal changed) ===
     const DEV_USERS = ["Shreyam", "Saksham"];
     const CHATANGO_GROUP = "chatpeak";
 
@@ -183,18 +459,17 @@
       els.userDisplay.textContent = `Logged in as: ${username}`;
     }
 
-    // Theme Toggle (unchanged)
     if (localStorage.getItem("theme") === "light") {
       els.body.classList.add("light-mode");
       els.themeToggle.classList.add("active");
     }
+
     els.themeToggle.addEventListener("click", () => {
       const isLight = els.body.classList.toggle("light-mode");
       els.themeToggle.classList.toggle("active");
       localStorage.setItem("theme", isLight ? "light" : "dark");
     });
 
-    // Chatango (unchanged)
     if (username) {
       const embedDiv = document.createElement('div');
       embedDiv.id = 'chatango-embed-' + Date.now();
@@ -220,18 +495,16 @@
       }, 6000);
     }
 
-    // ONLY THIS FUNCTION CHANGED
+    // PERFECTLY WORKING OPEN PDF (ONLY FOR CLASS WORK)
     window.openModal = (title) => {
       els.modalTitle.textContent = title;
 
-      // Only Class Work gets the PDF button
       if (title === "Class Work") {
         els.modal.querySelector("p").innerHTML = `
           Latest Class Work (18-11-2025)<br><br>
-          <a href="CLASSWORK181125.pdf" target="_blank" class="pdf-btn">Open PDF</a>
+          <a href="classwork181125.pdf" target="_blank" download class="pdf-btn">Open PDF</a>
         `;
       } else {
-        // Home Work & Assignments stay exactly like before
         els.modal.querySelector("p").innerHTML = `Nothing to see here right now.<br><strong>Contact the DEV</strong>.`;
       }
 
@@ -270,6 +543,7 @@
   </script>
 </body>
 </html>
+
 
 
 

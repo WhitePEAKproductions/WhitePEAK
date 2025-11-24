@@ -108,7 +108,23 @@
     .funny-text { margin-top: 20px; font-size: 27px; font-weight: 800; color: var(--danger); text-shadow: 0 0 15px rgba(255,77,77,.5); animation: pulse 3s infinite; }
     @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-    .chatango-wrapper { width: min(100%,300px); height: 420px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.5); border: 1px solid var(--border-dark); background: #000; margin-top: 20px; }
+    /* Updated Chat Container for Cactus */
+    .chatango-wrapper { 
+      width: min(100%,300px); 
+      height: 420px; 
+      border-radius: 12px; 
+      overflow: hidden; 
+      box-shadow: 0 10px 30px rgba(0,0,0,.5); 
+      border: 1px solid var(--border-dark); 
+      background: #000; 
+      margin-top: 20px; 
+      position: relative; 
+    }
+    #cactus-comments {
+      width: 100%; 
+      height: 100%; 
+      border-radius: inherit; 
+    }
     @media (min-width:992px) { .chatango-wrapper { position: fixed; bottom: 20px; right: 20px; z-index: 900; } }
     @media (max-width:991px) { .chatango-wrapper { position: static; margin: 20px auto; } }
 
@@ -190,16 +206,15 @@
     <div class="events">
       <h3>Upcoming Events</h3>
       
-    
-  
     </div>
 
     <div class="funny-text">
       <b>BETTER USE THIS SITE DAILY, MUAHAHAHAHAH</b>
     </div>
 
-    <div class="chatango-wrapper" id="chatango-container">
-      <p style="color:#ff4d4d;text-align:center;padding:20px;font-size:14px;">Login to join the community chat!</p>
+    <!-- Updated Chat Container: Now Cactus Chat -->
+    <div class="chatango-wrapper">
+      <div id="cactus-comments"></div>
     </div>
   </main>
 
@@ -217,17 +232,31 @@
     </div>
   </div>
 
+  <!-- Cactus Chat Resources and Initialization -->
+  <script type="text/javascript" src="https://latest.cactus.chat/cactus.js"></script>
+  <link rel="stylesheet" href="https://latest.cactus.chat/style.css" type="text/css">
+  <script>
+    // Initialize Cactus Chat (runs after page load)
+    document.addEventListener('DOMContentLoaded', function() {
+      initComments({
+        node: document.getElementById("cactus-comments"),
+        defaultHomeserverUrl: "https://matrix.cactus.chat:8448",
+        serverName: "cactus.chat",
+        siteName: "whitepeak",  // Your registered site name
+        commentSectionId: "mainchat"  // Room for the main portal chat
+      });
+    });
+  </script>
+
   <script>
     const DEV_USERS = ["Shreyam", "Saksham"];
-    const CHATANGO_GROUP = "chatpeak";
 
     const els = {
       userDisplay: document.getElementById("userDisplay"),
       themeToggle: document.getElementById("themeToggle"),
       body: document.body,
       modal: document.getElementById("pdfModal"),
-      modalTitle: document.getElementById("modalTitle"),
-      chatContainer: document.getElementById("chatango-container")
+      modalTitle: document.getElementById("modalTitle")
     };
 
     const username = localStorage.getItem("username")?.trim();
@@ -243,27 +272,6 @@
       els.themeToggle.classList.toggle("active");
       localStorage.setItem("theme", isLight ? "light" : "dark");
     });
-
-    if (username) {
-      const embedDiv = document.createElement('div');
-      embedDiv.id = 'chatango-embed-' + Date.now();
-      els.chatContainer.innerHTML = ''; 
-      els.chatContainer.appendChild(embedDiv);
-      const script = document.createElement('script');
-      script.src = '//st.chatango.com/js/gz/emb.js';
-      script.setAttribute('data-cfasync', 'false'); 
-      script.async = true;
-      script.text = JSON.stringify({ 
-        handle: CHATANGO_GROUP, 
-        arch: "js", 
-        styles: { a: "000000", b: 100, c: "FFFFFF", d: "FFFFFF", k: "000000", l: "000000", m: "000000", n: "FFFFFF", p: "12.42", q: "000000", r: 100, t: 0, usricon: 0, surl: 0, cnrs: "1", fwtickm: 1 }
-      });
-      document.body.appendChild(script);
-
-      setTimeout(() => {
-        if (!embedDiv.children.length) embedDiv.innerHTML = '<p style="color:#ff4d4d;font-size:12px;text-align:center;padding:10px;">Chat blocked? Try disabling adblocker.</p>';
-      }, 6000);
-    }
 
     // UPDATED openModal → Triggers real Chrome download bar/notification
     window.openModal = (title) => {
@@ -321,7 +329,8 @@
     });
   </script>
 </body>
-</html>
+  </html>
+
 
 
 

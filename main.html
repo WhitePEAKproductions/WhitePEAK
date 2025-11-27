@@ -8,7 +8,7 @@
   <style>
     :root {
       --bg-dark: linear-gradient(135deg, #0f0f0f, #1c1c1c);
-      --bg-light: linear-gradient(135deg, #f0f0f0, #fff);
+      --bg-light: linear-gradient(135deg #f0f0f0, #fff);
       --text-dark: #fff;
       --text-light: #222;
       --card-dark: rgba(255, 255, 255, .08);
@@ -83,23 +83,34 @@
       text-shadow: 0 0 20px rgba(78,163,255,.4);
     }
 
-    .sections { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; max-width: 1100px; }
+    .sections { 
+      display: flex; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      gap: 28px; 
+      max-width: 1100px; 
+    }
     .section {
       width: 270px; height: 140px; background: var(--card-dark); border: 2px solid var(--border-dark);
       border-radius: 18px; display: flex; align-items: center; justify-content: center;
       font-size: 23px; font-weight: 700; color: #fff; cursor: pointer;
       transition: all .4s cubic-bezier(.2,.8,.2,1); position: relative; overflow: hidden;
       backdrop-filter: blur(8px); box-shadow: var(--shadow);
+      transform: translateZ(0); /* GPU boost */
+      will-change: transform;
     }
     .section:hover, .section:focus-visible {
-      transform: translateY(-10px) scale(1.05); border-color: var(--accent);
-      box-shadow: 0 20px 40px rgba(0,0,0,.5); background: rgba(255,255,255,.15);
+      transform: translateY(-10px) scale(1.05);
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(0,0,0,.5);
+      background: rgba(255,255,255,.15);
     }
 
     .events {
       background: var(--card-dark); border: 1.5px solid var(--border-dark);
       border-radius: 18px; padding: 28px; width: min(88%,860px);
       text-align: center; backdrop-filter: blur(10px); box-shadow: var(--shadow);
+      transform: translateZ(0);
     }
     .events h3 { font-size: 26px; margin-bottom: 16px; color: var(--accent); }
     .events p { font-size: 18px; color: #ff6b6b; font-weight: 600; font-style: italic; }
@@ -109,13 +120,14 @@
       text-shadow: 0 0 20px rgba(255,77,77,.6); animation: pulse 2.8s infinite;
     }
 
-    /* FINAL PERFECT SCRIBBLE SATURDAY BOX */
+    /* SCRIBBLE SATURDAY BOX */
     .chat-box {
       width: min(100%,310px); height: 430px;
       background: #000; border: 3px solid #1a1a1a;
       border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,.7);
       overflow: hidden; margin-top: 20px;
       font-family: 'Press Start 2P', cursive;
+      transform: translateZ(0);
     }
     .scribble-teaser {
       width: 100%; height: 100%;
@@ -153,26 +165,86 @@
     @media (min-width:992px) { .chat-box { position: fixed; bottom: 22px; right: 22px; z-index: 900; } }
     @media (max-width:991px) { .chat-box { position: static; margin: 30px auto; } }
 
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.9); backdrop-filter: blur(12px); justify-content: center; align-items: center; z-index: 2000; }
-    .modal-content { background: #1a1a1a; padding: 36px; border-radius: 20px; text-align: center; max-width: 420px; width: 90%; border: 1.5px solid #444; box-shadow: 0 25px 50px rgba(0,0,0,.6); animation: zoomIn .4s; }
-    .download-btn { display: inline-block; background: #ffffff; color: #000; padding: 16px 44px; margin-top: 24px; border-radius: 14px; font-weight: 700; font-size: 18px; text-decoration: none; box-shadow: 0 8px 30px rgba(0,0,0,0.4); transition: all 0.3s ease; }
-    .download-btn:hover { transform: translateY(-6px); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
-    .close-btn { background: var(--accent); color: #fff; border: none; padding: 10px 24px; border-radius: 10px; margin-top: 20px; font-weight: 600; cursor: pointer; }
+    /* FIXED SMOOTH MODAL */
+    .modal {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.92);
+      backdrop-filter: blur(12px);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .35s ease, visibility .35s;
+    }
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-content {
+      background: #1a1a1a;
+      padding: 36px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 440px;
+      width: 90%;
+      border: 1.5px solid #444;
+      box-shadow: 0 25px 60px rgba(0,0,0,.7);
+    }
+    .download-btn {
+      display: inline-block;
+      background: #ffffff;
+      color: #000;
+      padding: 16px 48px;
+      margin-top: 28px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 18px;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+    }
+    .download-btn:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    }
+    .close-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .3s;
+    }
+    .close-btn:hover { background: #3a8ee6; }
 
-    footer { background: rgba(0,0,0,.92); color: #aaa; padding: 22px; text-align: center; font-size: 14.5px; border-top: 1px solid var(--border-dark); }
+    footer {
+      background: rgba(0,0,0,.92);
+      color: #aaa;
+      padding: 22px;
+      text-align: center;
+      font-size: 14.5px;
+      border-top: 1px solid var(--border-dark);
+    }
     footer a { color: var(--accent); }
 
+    /* LIGHT MODE */
     .light-mode { background: var(--bg-light); color: var(--text-light); }
     .light-mode header, .light-mode footer { background: rgba(255,255,255,.95); }
     .light-mode .section, .light-mode .events, .light-mode .chat-box { background: var(--card-light); border-color: var(--border-light); }
     .light-mode .funny-text { color: #d00; }
     .light-mode .download-btn { background: #000; color: #fff; }
-    .light-mode .scribble-teaser { background: linear-gradient(135deg, #222, #333); }
-    .light-mode .screen { box-shadow: inset 0 0 30px rgba(5,217,232,.2); }
+    .light-mode .scribble-teaser { background: linear-gradient(135deg, #ddd, #fff); }
+    .light-mode .screen { box-shadow: inset 0 0 30px rgba(5,217,232,.15); }
 
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-    @keyframes zoomIn { from { transform: scale(.7); } to { transform: scale(1); } }
+    @keyframes zoomIn { from { transform: scale(.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   </style>
 </head>
 <body>
@@ -197,9 +269,9 @@
     <h1 class="welcome">Welcome to WhitePEAK Portal</h1>
 
     <div class="sections">
-      <div class="section" onclick="openModal('Class Work')" tabindex="0" role="button">Class Work</div>
-      <div class="section" onclick="openModal('Home Work')" tabindex="0" role="button">Home Work</div>
-      <div class="section" onclick="openModal('Assignments')" tabindex="0" role="button">Assignments</div>
+      <div class="section" onclick="openModal('Class Work')" tabindex="0" role="button" onkeydown="if(event.key==='Enter') openModal('Class Work')">Class Work</div>
+      <div class="section" onclick="openModal('Home Work')" tabindex="0" role="button" onkeydown="if(event.key==='Enter') openModal('Home Work')">Home Work</div>
+      <div class="section" onclick="openModal('Assignments')" tabindex="0" role="button" onkeydown="if(event.key==='Enter') openModal('Assignments')">Assignments</div>
     </div>
 
     <div class="events">
@@ -211,7 +283,7 @@
       <b>BETTER USE THIS SITE DAILY, MUAHAHAHAHAH</b>
     </div>
 
-    <!-- FINAL PERFECT SCRIBBLE SATURDAY BOX -->
+    <!-- SCRIBBLE SATURDAY TEASER -->
     <div class="chat-box">
       <div class="scribble-teaser">
         <div class="top-bar"></div>
@@ -233,11 +305,11 @@
     <p>Contact: <a href="mailto:whitepeakproductions9811@gmail.com">whitepeakproductions9811@gmail.com</a></p>
   </footer>
 
-  <!-- MODAL (100% WORKING DOWNLOAD) -->
+  <!-- SMOOTH MODAL -->
   <div class="modal" id="pdfModal">
     <div class="modal-content">
-      <h3 id="modalTitle">Class Work</h3>
-      <p id="modalBody">Loading...</p>
+      <h3 id="modalTitle">Loading...</h3>
+      <div id="modalBody">Please wait...</div>
       <button class="close-btn" onclick="closeModal()">Close</button>
     </div>
   </div>
@@ -249,13 +321,19 @@
       body: document.body,
       modal: document.getElementById("pdfModal"),
       modalTitle: document.getElementById("modalTitle"),
-      modalBody: document.getElementById("modalBody")
+      modalBody: document.getElementById("modalBody"),
+      modalContent: document.querySelector(".modal-content")
     };
 
+    // Login check
     const username = localStorage.getItem("username")?.trim();
-    if (!username) window.location.href = "index.html";
-    else els.userDisplay.textContent = `Logged in as: ${username}`;
+    if (!username) {
+      window.location.href = "index.html";
+    } else {
+      els.userDisplay.textContent = `Logged in as: ${username}`;
+    }
 
+    // Theme toggle
     if (localStorage.getItem("theme") === "light") {
       els.body.classList.add("light-mode");
       els.themeToggle.classList.add("active");
@@ -266,42 +344,66 @@
       localStorage.setItem("theme", isLight ? "light" : "dark");
     });
 
+    // SMOOTH MODAL SYSTEM
     window.openModal = (title) => {
       els.modalTitle.textContent = title;
+
       if (title === "Class Work") {
         els.modalBody.innerHTML = `
           Latest Class Work (26-11-2025)<br><br>
-          <a href="classwork261125.pdf" download="classwork261125.pdf" class="download-btn">
+          <a href="classwork271125.pdf" download="classwork271125.pdf" class="download-btn">
             Download PDF
           </a>
-          <p style="margin-top:18px; font-size:13px; color:#888;">
-            If nothing happens → <a href="classwork261125.pdf" download style="color:var(--accent); text-decoration:underline;">click here</a>
+          <p style="margin-top:20px;font-size:13px;color:#888;">
+            Not downloading? → <a href="classwork271125.pdf" download style="color:var(--accent)">Right-click → Save Link As</a>
           </p>
         `;
       } else {
-        els.modalBody.innerHTML = `Nothing here yet.<br><strong>Contact the DEV</strong>.`;
+        els.modalBody.innerHTML = `
+          <p style="font-size:22px;color:#ff6b6b;line-height:1.6;">
+            Bro... there's literally NOTHING here yet<br><br>
+            <span style="font-size:15px;color:#aaa;">Go spam Shreyam/Saksham on Email</span>
+          </p>
+        `;
       }
-      els.modal.style.display = "flex";
+
+      els.modal.classList.add("show");
       els.body.style.overflow = "hidden";
+
+      // Trigger zoom animation
+      els.modalContent.style.animation = "none";
+      requestAnimationFrame(() => {
+        els.modalContent.style.animation = "zoomIn .45s ease forwards";
+      });
     };
 
     window.closeModal = () => {
-      els.modal.style.display = "none";
+      els.modal.classList.remove("show");
       els.body.style.overflow = "auto";
     };
 
-    document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-    els.modal.addEventListener("click", e => { if (e.target === els.modal) closeModal(); });
+    // Close on backdrop click
+    els.modal.addEventListener("click", (e) => {
+      if (e.target === els.modal) closeModal();
+    });
 
+    // ESC key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && els.modal.classList.contains("show")) closeModal();
+    });
+
+    // Sign out
     window.signOut = () => {
-      if (confirm("Are you sure you want to sign out?")) {
-        ["username", "wp_name", "wp_gender", "theme"].forEach(key => localStorage.removeItem(key));
+      if (confirm("Sign out and cry later?")) {
+        ["username", "wp_name", "wp_gender", "theme"].forEach(k => localStorage.removeItem(k));
         window.location.href = "index.html";
       }
     };
   </script>
 </body>
-  </html>
+                                             </html>
+
+
 
 
 

@@ -1,1 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DEV SPEAKS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;900&display=swap');
 
+body {
+    margin: 0;
+    background: #070707;
+    color: #eaeaea;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#text {
+    font-size: 40px;
+    font-weight: 600;
+    width: 80%;
+    max-width: 900px;
+    line-height: 1.4;
+    text-align: center;
+    white-space: pre-line;
+    opacity: 0;
+    transition: opacity .4s ease, text-shadow .3s;
+}
+
+.typing {
+    border-right: 3px solid #00eaff;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+.shake {
+    animation: shake 0.15s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translate(0px,0px); }
+    25% { transform: translate(-4px,3px); }
+    50% { transform: translate(4px,-3px); }
+    75% { transform: translate(-3px,2px); }
+    100% { transform: translate(3px,-2px); }
+}
+
+.glitch {
+    animation: glitch 0.25s steps(2, end) infinite;
+}
+
+@keyframes glitch {
+    0% { text-shadow: 5px 0 #ff004c, -5px 0 #00eaff; }
+    40% { text-shadow: -4px 0 #ff004c, 4px 0 #00eaff; }
+    70% { text-shadow: 6px 0 #00eaff, -6px 0 #ff004c; }
+    100% { text-shadow: 0 0 #fff; }
+}
+
+.big {
+    font-size: 65px;
+    font-weight: 900;
+    color: #00eaff;
+    text-shadow: 0 0 25px #00eaff;
+}
+</style>
+</head>
+<body>
+
+<div id="text"></div>
+
+<!-- SOUND EFFECTS -->
+<audio id="typeSound" src="https://assets.mixkit.co/active_storage/sfx/2830/2830-preview.mp3"></audio>
+<audio id="explodeSound" src="https://assets.mixkit.co/active_storage/sfx/2575/2575-preview.mp3"></audio>
+<audio id="keyboardBreak" src="https://assets.mixkit.co/active_storage/sfx/2718/2718-preview.mp3"></audio>
+
+<script>
+// TEXT LINES
+const lines = [
+    "Hey guys...",
+    "So listen carefully...",
+    "Today was supposed to be Scribble Saturday...",
+    "I worked THE WHOLE DAY for this 😤",
+    "Coding like a beast...",
+    "Debugging like a legend...",
+    "",
+    "Because...",
+    "",
+    "I AM THE DEV.",
+    "",
+    "AND THEN...."
+];
+
+const finalBreak = "MY KEYBOARD JUST BROKE 💥\n\nSO NO SCRIBBLE TODAY 💀😂";
+
+let index = 0;
+let charIndex = 0;
+
+const textBox = document.getElementById("text");
+const typeSound = document.getElementById("typeSound");
+const explodeSound = document.getElementById("explodeSound");
+const breakSound = document.getElementById("keyboardBreak");
+
+function typeLine() {
+    if (index >= lines.length) {
+        shakeAndBreak();
+        return;
+    }
+
+    textBox.style.opacity = 1;
+    let currentLine = lines[index];
+    textBox.classList.add("typing");
+
+    let typing = setInterval(() => {
+        textBox.innerHTML = currentLine.substring(0, charIndex + 1);
+        typeSound.currentTime = 0;
+        typeSound.play().catch(()=>{});
+        charIndex++;
+
+        if (charIndex >= currentLine.length) {
+            clearInterval(typing);
+            textBox.classList.remove("typing");
+
+            if (currentLine === "I AM THE DEV.") {
+                textBox.classList.add("big", "glitch");
+                explodeSound.play().catch(()=>{});
+                shakeScreenBrief();
+            }
+
+            charIndex = 0;
+            index++;
+            setTimeout(typeLine, 900);
+        }
+    }, 60);
+}
+
+function shakeScreenBrief() {
+    document.body.classList.add("shake");
+    setTimeout(() => {
+        document.body.classList.remove("shake");
+    }, 700);
+}
+
+function shakeAndBreak() {
+    explodeSound.play().catch(()=>{});
+
+    let mash = setInterval(() => {
+        document.body.classList.add("shake");
+        textBox.innerHTML = randomSpam();
+    }, 70);
+
+    setTimeout(() => {
+        clearInterval(mash);
+        breakSound.play().catch(()=>{});
+        document.body.classList.remove("shake");
+        textBox.classList.remove("big", "glitch");
+        textBox.innerHTML = finalBreak;
+        textBox.style.fontSize = "55px";
+        textBox.style.textShadow = "0 0 25px red";
+    }, 2600);
+}
+
+function randomSpam() {
+    const chars = "ASDFGHJKLQWERTYUIOPZXCVBNM<>?@#$&*";
+    let out = "";
+    for (let j = 0; j < 28; j++) {
+        out += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return out;
+}
+
+typeLine();
+</script>
+
+</body>
+</html>

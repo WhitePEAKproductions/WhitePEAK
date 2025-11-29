@@ -96,7 +96,7 @@
       font-size: 23px; font-weight: 700; color: #fff; cursor: pointer;
       transition: all .4s cubic-bezier(.2,.8,.2,1); position: relative; overflow: hidden;
       backdrop-filter: blur(8px); box-shadow: var(--shadow);
-      transform: translateZ(0); /* GPU boost */
+      transform: translateZ(0);
       will-change: transform;
     }
     .section:hover, .section:focus-visible {
@@ -161,6 +161,31 @@
       box-shadow: 0 0 15px var(--pink);
     }
     @keyframes cursor { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* NEW RETRO BUTTON */
+    .scribble-btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: linear-gradient(180deg, var(--cyan), #00b8cc);
+      color: #000;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+      border: 4px solid #000;
+      border-radius: 8px;
+      box-shadow: 0 0 20px var(--cyan), inset 0 0 15px rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: all 0.15s;
+      animation: pulseBtn 2s infinite;
+    }
+    .scribble-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px var(--cyan);
+    }
+    @keyframes pulseBtn {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
 
     @media (min-width:992px) { .chat-box { position: fixed; bottom: 22px; right: 22px; z-index: 900; } }
     @media (max-width:991px) { .chat-box { position: static; margin: 30px auto; } }
@@ -283,7 +308,7 @@
       <b>BETTER USE THIS SITE DAILY, MUAHAHAHAHAH</b>
     </div>
 
-    <!-- SCRIBBLE SATURDAY TEASER -->
+    <!-- SCRIBBLE SATURDAY TEASER + DYNAMIC BUTTON -->
     <div class="chat-box">
       <div class="scribble-teaser">
         <div class="top-bar"></div>
@@ -291,8 +316,12 @@
           <h2>SCRIBBLE</h2>
           <h2>SATURDAY</h2>
           <div class="coming-soon">
-            COMING SOON<span class="blink">█</span>
+            LIVE NOW<span class="blink">█</span>
           </div>
+          <!-- NEW RETRO BUTTON -->
+          <button class="scribble-btn" onclick="window.location.href='scribble.html'">
+            ENTER SCRIBBLE SATURDAY
+          </button>
         </div>
         <div class="bottom-bar"></div>
       </div>
@@ -401,11 +430,7 @@
     };
   </script>
 </body>
-                                             </html>
-
-
-
-
+</html>
 
 
 

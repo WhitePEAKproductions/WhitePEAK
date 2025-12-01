@@ -113,7 +113,8 @@
       transform: translateZ(0);
     }
     .events h3 { font-size: 26px; margin-bottom: 16px; color: var(--accent); }
-    .events p { font-size: 18px; color: #ff6b6b; font-weight: 600; font-style: italic; }
+    .events ul { text-align: left; margin: 20px auto; max-width: 600px; }
+    .events li { margin: 12px 0; font-size: 18px; }
 
     .funny-text {
       font-size: 29px; font-weight: 900; color: var(--danger);
@@ -299,9 +300,15 @@
       <div class="section" onclick="openModal('Assignments')" tabindex="0" role="button" onkeydown="if(event.key==='Enter') openModal('Assignments')">Assignments</div>
     </div>
 
+    <!-- NOTICES SECTION (previously Upcoming Events) -->
     <div class="events">
-      <h3>Upcoming Events</h3>
-      <p>bro there is literally nothing happening rn<br>go touch some grass or something idk</p>
+      <h3>Notices</h3>
+      <ul>
+        <li>On <strong>Friday</strong> → Biology C.W copy submission</li>
+      </ul>
+      <p style="margin-top: 24px; font-size: 20px; color: #ff4d4d; font-weight: 800;">
+        DO CHECK THE HOMEWORK SECTION FROM NOW ON!!
+      </p>
     </div>
 
     <div class="funny-text">
@@ -318,7 +325,6 @@
           <div class="coming-soon">
             LIVE NOW<span class="blink">█</span>
           </div>
-          <!-- NEW RETRO BUTTON -->
           <button class="scribble-btn" onclick="window.location.href='Scribble.html'">
             ENTER SCRIBBLE SATURDAY
           </button>
@@ -379,12 +385,12 @@
 
       if (title === "Class Work") {
         els.modalBody.innerHTML = `
-          Latest Class Work (27-11-2025)<br><br>
-          <a href="classwork271125.pdf" download="classwork271125.pdf" class="download-btn">
+          Latest Class Work (01-12-2025)<br><br>
+          <a href="classwork11225.pdf" download="classwork11225.pdf" class="download-btn">
             Download PDF
           </a>
           <p style="margin-top:20px;font-size:13px;color:#888;">
-            Not downloading? → <a href="classwork271125.pdf" download style="color:var(--accent)">Right-click → Save Link As</a>
+            Not downloading? → <a href="classwork11225.pdf" download style="color:var(--accent)">Right-click → Save Link As</a>
           </p>
         `;
       } else {
@@ -430,7 +436,8 @@
     };
   </script>
 </body>
-</html>
+                                        </html>
+
 
 
 

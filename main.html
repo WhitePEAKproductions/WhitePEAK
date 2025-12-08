@@ -113,85 +113,16 @@
       transform: translateZ(0);
     }
     .events h3 { font-size: 26px; margin-bottom: 16px; color: var(--accent); }
-    .events ul { text-align: left; margin: 20px auto; max-width: 600px; }
-    .events li { margin: 12px 0; font-size: 18px; }
 
     .funny-text {
-      font-size: 29px; font-weight: 900; color: var(--danger);
-      text-shadow: 0 0 20px rgba(255,77,77,.6); animation: pulse 2.8s infinite;
+      font-size: 32px; font-weight: 900;
+      background: linear-gradient(90deg, #ff2a6d, #ff8a00, #05d9e8);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 30px rgba(255,42,109,.6);
+      animation: rainbow 4s linear infinite, pulse 2s infinite;
     }
 
-    /* SCRIBBLE SATURDAY BOX */
-    .chat-box {
-      width: min(100%,310px); height: 430px;
-      background: #000; border: 3px solid #1a1a1a;
-      border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,.7);
-      overflow: hidden; margin-top: 20px;
-      font-family: 'Press Start 2P', cursive;
-      transform: translateZ(0);
-    }
-    .scribble-teaser {
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-      display: flex; flex-direction: column; padding: 20px 15px;
-    }
-    .top-bar, .bottom-bar {
-      height: 20px; background: linear-gradient(90deg, var(--pink), var(--cyan));
-      border-radius: 8px; margin-bottom: 15px;
-    }
-    .bottom-bar { margin-top: auto; margin-bottom: 0; }
-    .screen {
-      flex: 1; background: #000; border: 4px solid #333;
-      border-radius: 8px; display: flex; flex-direction: column;
-      justify-content: center; gap: 18px; padding: 20px;
-      box-shadow: inset 0 0 30px rgba(5,217,232,.3);
-    }
-    .screen h2 {
-      font-size: 21px; color: var(--cyan);
-      text-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan), 3px 3px 0 var(--pink);
-      margin: 0; line-height: 1;
-    }
-    .coming-soon {
-      font-size: 14px; color: #fff; letter-spacing: 4px;
-      text-shadow: 0 0 15px var(--pink);
-    }
-    .blink {
-      display: inline-block; width: 14px; height: 24px;
-      background: var(--pink); margin-left: 6px;
-      animation: cursor 0.9s infinite;
-      box-shadow: 0 0 15px var(--pink);
-    }
-    @keyframes cursor { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
-
-    /* NEW RETRO BUTTON */
-    .scribble-btn {
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: linear-gradient(180deg, var(--cyan), #00b8cc);
-      color: #000;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 14px;
-      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
-      border: 4px solid #000;
-      border-radius: 8px;
-      box-shadow: 0 0 20px var(--cyan), inset 0 0 15px rgba(255,255,255,0.2);
-      cursor: pointer;
-      transition: all 0.15s;
-      animation: pulseBtn 2s infinite;
-    }
-    .scribble-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 30px var(--cyan);
-    }
-    @keyframes pulseBtn {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    @media (min-width:992px) { .chat-box { position: fixed; bottom: 22px; right: 22px; z-index: 900; } }
-    @media (max-width:991px) { .chat-box { position: static; margin: 30px auto; } }
-
-    /* FIXED SMOOTH MODAL */
     .modal {
       display: flex;
       position: fixed;
@@ -237,17 +168,8 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.6);
     }
     .close-btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 10px 28px;
-      border-radius: 10px;
-      margin-top: 20px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: .3s;
-    }
-    .close-btn:hover { background: #3a8ee6; }
+      { background: var(--accent); color: #fff; border: none; padding: 10px 28px; border-radius: 10px; margin-top: 20px; font-weight: 600; cursor: pointer; transition: .3s; }
+    .close-btn:hover   { background: #3a8ee6; }
 
     footer {
       background: rgba(0,0,0,.92);
@@ -262,15 +184,15 @@
     /* LIGHT MODE */
     .light-mode { background: var(--bg-light); color: var(--text-light); }
     .light-mode header, .light-mode footer { background: rgba(255,255,255,.95); }
-    .light-mode .section, .light-mode .events, .light-mode .chat-box { background: var(--card-light); border-color: var(--border-light); }
-    .light-mode .funny-text { color: #d00; }
+    .light-mode .section, .light-mode .events { background: var(--card-light); border-color: var(--border-light); }
     .light-mode .download-btn { background: #000; color: #fff; }
-    .light-mode .scribble-teaser { background: linear-gradient(135deg, #ddd, #fff); }
-    .light-mode .screen { box-shadow: inset 0 0 30px rgba(5,217,232,.15); }
 
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-    @keyframes zoomIn { from { transform: scale(.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+    @keyframes rainbow {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
   </style>
 </head>
 <body>
@@ -300,38 +222,25 @@
       <div class="section" onclick="openModal('Assignments')" tabindex="0" role="button" onkeydown="if(event.key==='Enter') openModal('Assignments')">Assignments</div>
     </div>
 
-    <!-- NOTICES SECTION (previously Upcoming Events) -->
+    <!-- NOTICES SECTION -->
     <div class="events">
-      <h3>Notices</h3>
-      <ul>
-        <li>On <strong>Friday</strong> → Biology C.W copy submission</li>
+      <h3>Deutschkurs PT Portion – Modul 4 (Lektion 1 & 2)</h3>
+      <ul style="text-align:left; max-width:700px; margin:30px auto; line-height:2;">
+        <li>Ein Text R/F – <strong>5 Marks</strong></li>
+        <li>Ein Text MCQ – <strong>5 Marks</strong></li>
+        <li>Die Modalverben – <strong>2.5 Marks</strong></li>
+        <li>Die Konjugationen – <strong>2.5 Marks</strong></li>
+        <li>Der / Die / Das – <strong>2.5 Marks</strong></li>
+        <li>Die Plurale – <strong>2.5 Marks</strong></li>
+        <li>Stell Fragen – <strong>2.5 Marks</strong></li>
+        <li>Eine E-Mail – <strong>2.5 Marks</strong></li>
       </ul>
-      <p style="margin-top: 24px; font-size: 20px; color: #ff4d4d; font-weight: 800;">
-        DO CHECK THE HOMEWORK SECTION FROM NOW ON!!
-      </p>
     </div>
 
     <div class="funny-text">
-      <b>BETTER USE THIS SITE DAILY, MUAHAHAHAHAH</b>
+      <b>Deutsch lernen ohne Tränen? Unmöglich! 😭😂</b>
     </div>
 
-    <!-- SCRIBBLE SATURDAY TEASER + DYNAMIC BUTTON -->
-    <div class="chat-box">
-      <div class="scribble-teaser">
-        <div class="top-bar"></div>
-        <div class="screen">
-          <h2>SCRIBBLE</h2>
-          <h2>SATURDAY</h2>
-          <div class="coming-soon">
-            LIVE NOW<span class="blink">█</span>
-          </div>
-          <button class="scribble-btn" onclick="window.location.href='Scribble.html'">
-            ENTER SCRIBBLE SATURDAY
-          </button>
-        </div>
-        <div class="bottom-bar"></div>
-      </div>
-    </div>
   </main>
 
   <footer>
@@ -340,7 +249,7 @@
     <p>Contact: <a href="mailto:whitepeakproductions9811@gmail.com">whitepeakproductions9811@gmail.com</a></p>
   </footer>
 
-  <!-- SMOOTH MODAL -->
+  <!-- MODAL -->
   <div class="modal" id="pdfModal">
     <div class="modal-content">
       <h3 id="modalTitle">Loading...</h3>
@@ -379,29 +288,29 @@
       localStorage.setItem("theme", isLight ? "light" : "dark");
     });
 
-    // SMOOTH MODAL SYSTEM
+    // MODAL SYSTEM – Updated Date & File
     window.openModal = (title) => {
       els.modalTitle.textContent = title;
 
       if (title === "Class Work") {
         els.modalBody.innerHTML = `
-          Latest Class Work (05-12-2025)<br><br>
-          <a href="classwork51225.pdf" download="classwork51225.pdf" class="download-btn">
+          Latest Class Work (08-12-2025)<br><br>
+          <a href="classwork81225.pdf" download="classwork81225.pdf" class="download-btn">
             Download PDF
           </a>
           <p style="margin-top:20px;font-size:13px;color:#888;">
-            Not downloading? → <a href="classwork51225.pdf" download style="color:var(--accent)">Right-click → Save Link As</a>
+            Not downloading? → <a href="classwork81225.pdf" download style="color:var(--accent)">Right-click → Save Link As</a>
           </p>
         `;
       } 
       else if (title === "Home Work") {
         els.modalBody.innerHTML = `
           <div style="text-align:left; font-size:18px; line-height:1.8; color:#ddd;">
-            <strong>NOTHING TO SEE HERE, ENJOY!</strong><br><br>
+            <strong>NOTHING TO SEE HERE, ENJOY YOUR FREEDOM!</strong><br><br>
             </div>
         `;
       }
-      else {
+      else { // Assignments
         els.modalBody.innerHTML = `
           <p style="font-size:22px;color:#ff6b6b;line-height:1.6;">
             Bro... there's literally NOTHING here yet<br><br>
@@ -413,7 +322,6 @@
       els.modal.classList.add("show");
       els.body.style.overflow = "hidden";
 
-      // Trigger zoom animation
       els.modalContent.style.animation = "none";
       requestAnimationFrame(() => {
         els.modalContent.style.animation = "zoomIn .45s ease forwards";
@@ -425,17 +333,14 @@
       els.body.style.overflow = "auto";
     };
 
-    // Close on backdrop click
     els.modal.addEventListener("click", (e) => {
       if (e.target === els.modal) closeModal();
     });
 
-    // ESC key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && els.modal.classList.contains("show")) closeModal();
     });
 
-    // Sign out
     window.signOut = () => {
       if (confirm("Sign out and cry later?")) {
         ["username", "wp_name", "wp_gender", "theme"].forEach(k => localStorage.removeItem(k));
@@ -444,8 +349,9 @@
     };
   </script>
 </body>
-      </html>
+  </html>
                                         </html>
+
 
 
 

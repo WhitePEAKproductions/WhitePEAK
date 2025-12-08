@@ -113,14 +113,12 @@
       transform: translateZ(0);
     }
     .events h3 { font-size: 26px; margin-bottom: 16px; color: var(--accent); }
+    .events ul { text-align: left; margin: 20px auto; max-width: 600px; }
+    .events li { margin: 12px 0; font-size: 18px; }
 
     .funny-text {
-      font-size: 32px; font-weight: 900;
-      background: linear-gradient(90deg, #ff2a6d, #ff8a00, #05d9e8);
-      -webkit-background-clip: text; background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 30px rgba(255,42,109,.6);
-      animation: rainbow 4s linear infinite, pulse 2s infinite;
+      font-size: 29px; font-weight: 900; color: var(--danger);
+      text-shadow: 0 0 20px rgba(255,77,77,.6); animation: pulse 2.8s infinite;
     }
 
     .modal {
@@ -168,8 +166,17 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.6);
     }
     .close-btn {
-      { background: var(--accent); color: #fff; border: none; padding: 10px 28px; border-radius: 10px; margin-top: 20px; font-weight: 600; cursor: pointer; transition: .3s; }
-    .close-btn:hover   { background: #3a8ee6; }
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .3s;
+    }
+    .close-btn:hover { background: #3a8ee6; }
 
     footer {
       background: rgba(0,0,0,.92);
@@ -184,15 +191,13 @@
     /* LIGHT MODE */
     .light-mode { background: var(--bg-light); color: var(--text-light); }
     .light-mode header, .light-mode footer { background: rgba(255,255,255,.95); }
-    .light-mode .section, .light-mode .events { background: var(--card-light); border-color: var(--border-light); }
+    .light-mode .section, .light-mode .events, .light-mode .chat-box { background: var(--card-light); border-color: var(--border-light); }
+    .light-mode .funny-text { color: #d00; }
     .light-mode .download-btn { background: #000; color: #fff; }
 
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } }
-    @keyframes rainbow {
-      0%   { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+    @keyframes zoomIn { from { transform: scale(.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   </style>
 </head>
 <body>
@@ -222,23 +227,27 @@
       <div class="section" onclick="openModal('Assignments')" tabindex="0" role="button" onkeydown="if(event.key==='Enter') openModal('Assignments')">Assignments</div>
     </div>
 
-    <!-- NOTICES SECTION -->
+    <!-- NOTICES SECTION - NOW WITH GERMAN PT PORTION -->
     <div class="events">
-      <h3>Deutschkurs PT Portion – Modul 4 (Lektion 1 & 2)</h3>
-      <ul style="text-align:left; max-width:700px; margin:30px auto; line-height:2;">
-        <li>Ein Text R/F – <strong>5 Marks</strong></li>
-        <li>Ein Text MCQ – <strong>5 Marks</strong></li>
-        <li>Die Modalverben – <strong>2.5 Marks</strong></li>
-        <li>Die Konjugationen – <strong>2.5 Marks</strong></li>
-        <li>Der / Die / Das – <strong>2.5 Marks</strong></li>
-        <li>Die Plurale – <strong>2.5 Marks</strong></li>
-        <li>Stell Fragen – <strong>2.5 Marks</strong></li>
-        <li>Eine E-Mail – <strong>2.5 Marks</strong></li>
+      <h3>Deutschkurs PT Portion</h3>
+      <ul>
+        <li>Modul 4 | Lektion 1 & 2</li>
+      </ul>
+      <ul style="text-align:left; margin-top:20px; max-width:700px; margin-left:auto; margin-right:auto;">
+        <li>Ein Text (R/F) → <strong>5 Marks</strong></li>
+        <li>Ein Text MCQ → <strong>5 Marks</strong></li>
+        <li>Die Modalverben → <strong>2.5 Marks</strong></li>
+        <li>Die Konjugationen → <strong>2.5 Marks</strong></li>
+        <li>Der/Die/Das → <strong>2.5 Marks</strong></li>
+        <li>Die Plurale → <strong>2.5 Marks</strong></li>
+        <li>Stell Fragen → <strong>2.5 Marks</strong></li>
+        <li>Eine E-Mail → <strong>2.5 Marks</strong></li>
       </ul>
     </div>
 
+    <!-- NEW FUNNY ENGLISH JOKE (highlighted + pulsing) -->
     <div class="funny-text">
-      <b>Deutsch lernen ohne Tränen? Unmöglich! 😭😂</b>
+      <b>HOMEWORK SECTION IS EMPTY... YES, I'M SINGLE TOO</b>
     </div>
 
   </main>
@@ -288,7 +297,7 @@
       localStorage.setItem("theme", isLight ? "light" : "dark");
     });
 
-    // MODAL SYSTEM – Updated Date & File
+    // MODAL - ONLY CHANGED FILE NAME + DATE
     window.openModal = (title) => {
       els.modalTitle.textContent = title;
 
@@ -306,11 +315,11 @@
       else if (title === "Home Work") {
         els.modalBody.innerHTML = `
           <div style="text-align:left; font-size:18px; line-height:1.8; color:#ddd;">
-            <strong>NOTHING TO SEE HERE, ENJOY YOUR FREEDOM!</strong><br><br>
+            <strong>NOTHING TO SEE HERE, ENJOY!</strong><br><br>
             </div>
         `;
       }
-      else { // Assignments
+      else {
         els.modalBody.innerHTML = `
           <p style="font-size:22px;color:#ff6b6b;line-height:1.6;">
             Bro... there's literally NOTHING here yet<br><br>
@@ -322,6 +331,7 @@
       els.modal.classList.add("show");
       els.body.style.overflow = "hidden";
 
+      // Trigger zoom animation
       els.modalContent.style.animation = "none";
       requestAnimationFrame(() => {
         els.modalContent.style.animation = "zoomIn .45s ease forwards";
@@ -333,14 +343,17 @@
       els.body.style.overflow = "auto";
     };
 
+    // Close on backdrop click
     els.modal.addEventListener("click", (e) => {
       if (e.target === els.modal) closeModal();
     });
 
+    // ESC key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && els.modal.classList.contains("show")) closeModal();
     });
 
+    // Sign out
     window.signOut = () => {
       if (confirm("Sign out and cry later?")) {
         ["username", "wp_name", "wp_gender", "theme"].forEach(k => localStorage.removeItem(k));
@@ -349,8 +362,9 @@
     };
   </script>
 </body>
-  </html>
+    </html>
                                         </html>
+
 
 
 
